@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class=''>
+  <head>
+    <script>
+      let cdn = "https://cdn.bopimo.com";
+      function localFallback() {
+        // js
+        document.querySelectorAll(`script[src^="${cdn}"]`).forEach((script) => {
+          let url = script.getAttribute('src')
+          let path = new URL(url).pathname.split('static')[1]
+          var script = document.createElement('script');
+          script.onload = function() {
+            console.log('loading script')
+          };
+          script.src = path;
+          document.head.appendChild(script);
+        })
+      }
+      function localCssFallback() {
+        // css
+        document.querySelectorAll(`link[href^="${cdn}"]`).forEach((style) => {
+          console.log(style)
+          let url = style.getAttribute('href')
+          let path = new URL(url).pathname.split('static')[1]
+          var link = document.createElement('link');
+          link.href = path
+          link.rel = 'stylesheet'
+          document.head.appendChild(link);
+        })
+      }
+      function localFallbacks() {
+        localFallback()
+        localCssFallback()
+      }
+      function cdnCheck() {
+        window.Vue || (localFallbacks())
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bopimo.com/static/dist/js/manifest.e4e0a03ba355db6dd283217de1fee883.js" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.bopimo.com/static/dist/js/vendor.620d5822184d7b9e3effd43cd040c482.js" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.bopimo.com/static/dist/js/babylonjs.722a531baab17568a354a9150d9c067e.js" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.bopimo.com/static/dist/js/main.953757f61abe75fe2499c6754141408b.js" crossorigin="anonymous" onerror="cdnCheck()" defer></script>
+    <meta name="csrf-token" content="tUWZefZjw7lWmsDrjxxRzmqeC7pL3yXgcDgMhLtI">
+    <script type="text/javascript">
+      const Ziggy = {
+        "url": "https:\/\/www.ludimo.de5.net",
+        "port": null,
+        "defaults": {},
+        "routes": {
+          "api.users.all": {
+            "uri": "api\/users",
+            "methods": ["GET", "HEAD"]
+          },
+          "api.comments.get": {
+            "uri": "api\/comments\/{type}\/{id}",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["type", "id"]
+          },
+          "api.shop.search": {
+            "uri": "api\/shop\/search",
+            "methods": ["GET", "HEAD"]
+          },
+          "shop.item": {
+            "uri": "items\/{id}",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["id"]
+          },
+          "shop.item.edit": {
+            "uri": "items\/{id}\/edit",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["id"]
+          },
+          "user.profile": {
+            "uri": "users\/{username}",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["username"]
+          },
+          "level": {
+            "uri": "levels\/{level}",
+            "methods": ["GET", "HEAD"],
+            "wheres": {
+              "level": "[0-9]+"
+            },
+            "parameters": ["level"]
+          },
+          "user.levels": {
+            "uri": "users\/{username}\/levels",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["username"]
+          },
+          "ratings.all": {
+            "uri": "ratings",
+            "methods": ["GET", "HEAD"]
+          },
+          "level.create": {
+            "uri": "levels\/create",
+            "methods": ["GET", "HEAD"]
+          },
+          "level.edit": {
+            "uri": "levels\/{level}\/edit",
+            "methods": ["GET", "HEAD"],
+            "parameters": ["level"],
+            "bindings": {
+              "level": "id"
+            }
+          },
+          "ratings.search": {
+            "uri": "api\/ratings",
+            "methods": ["GET", "HEAD"]
+          },
+          "join-token.create": {
+            "uri": "api\/auth\/join-token",
+            "methods": ["POST"]
+          },
+          "level.ratings.record": {
+            "uri": "api\/levels\/{id}\/ratings\/record",
+            "methods": ["POST"],
+            "parameters": ["id"]
+          },
+          "ratings.delete": {
+            "uri": "api\/ratings\/{id}\/delete",
+            "methods": ["POST"],
+            "parameters": ["id"]
+          },
+          "conversation.all": {
+            "uri": "api\/conversations",
+            "methods": ["GET", "HEAD"]
+          },
+          "conversation.search": {
+            "uri": "api\/conversation\/search",
+            "methods": ["GET", "HEAD"]
+          },
+          "auth.update": {
+            "uri": "api\/auth\/user",
+            "methods": ["POST"]
+          },
+          "auth.logoutOtherDevices": {
+            "uri": "api\/auth\/logout-other-devices",
+            "methods": ["POST"]
+          },
+          "auth.discord.link": {
+            "uri": "api\/auth\/link-discord",
+            "methods": ["GET", "HEAD"]
+          },
+          "discord-link.sync": {
+            "uri": "api\/auth\/discord-link\/sync",
+            "methods": ["POST"]
+          },
+          "discord-link.delete": {
+            "uri": "api\/auth\/discord-link\/delete",
+            "methods": ["POST"]
+          },
+          "auth.customTheme.create": {
+            "uri": "api\/auth\/custom-theme",
+            "methods": ["POST"]
+          },
+          "auth.customTheme.update": {
+            "uri": "api\/auth\/custom-theme\/{customTheme}",
+            "methods": ["POST"],
+            "parameters": ["customTheme"],
+            "bindings": {
+              "customTheme": "id"
+            }
+          }
+        }
+      };
+      ! function(t, r) {
+        "object" == typeof exports && "undefined" != typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define(r) : (t || self).route = r()
+      }(this, function() {
+        // Ziggy library code remains unchanged
+      });
+    </script>
+    <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
+    <title>Login - Ludimo!</title>
+    <meta property="og:site_name" content="Ludimo!" />
+    <meta property="og:title" content="Login - Ludimo!" />
+    <script src="https://hcaptcha.com/1/api.js?" async defer></script>
+  </head>
+  <body>
+    <div class="content" id='app'>
+      <nav class='navbar '>
+        <div class='container'>
+          <ul class='left'>
+            <li class="logo">
+              <a href='/'>
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt='landing'>
+              </a>
+              <div class="hamburger-menu" onclick="toggleNavbar()"><i class="fas fa-bars"></i></div>
+            </li>
+            <li><a href="/play">Play</a></li>
+            <li><a href="/shop">Shop</a></li>
+            <li><a href="/forums/">Forums</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/download">Download</a></li>
+            <li><a href="/upgrade">Upgrade</a></li>
+            <li>
+              <a class='event' href="/events/halloween-2026">Halloween</a>
+            </li>
+          </ul>
+          <ul class="right no-padding">
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="nav-push"></div>
+      <div class="container ">
+        <div class="col-xs-12 col-md-4 col-md-offset-4">
+          <div class="h3 pb2 text-center">Login</div>
+          <div class="shop-card">
+            <form class="form card-content p2" method='POST' action='/login'>
+              <label for='' class='form-label'>Username</label>
+              <input type='text' name='username' class='form-input' placeholder='Username'>
+              <label for='' class='form-label'>Password</label>
+              <input type='password' name='password' class='form-input mb1' placeholder='Password'>
+              <div class='mb3'>
+                <input type="checkbox" value="0" name="remember" id="remember"> <label for="remember">Remember me</label>
+              </div>
+              <button type='submit' class="button w100 pb2">Login</button>
+              <input type="hidden" name="_token" value="tUWZefZjw7lWmsDrjxxRzmqeC7pL3yXgcDgMhLtI" autocomplete="off">
+              <div class='text-center pt2 pb1'>
+                <a href='/reset'>Forgot your password?</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="footer ">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs col-md-4 company-stuff">
+              <div class="logo"><img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt=""></div>
+              <div class="company-text"><span class="copyright">©</span> 2026 Ludimo!</div>
+              <div class="social-media">
+                <a href='https://x.com/playludimo' title='Twitter'><i class="fab fa-twitter"></i></a>
+                <a href='https://www.twitch.tv/ludimo' title='Twitch'><i class="fab fa-twitch"></i></a>
+                <a href='https://www.youtube.com/@Bbrootorg' title='Youtube'><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-8 footer-links">
+              <div class="row">
+                <div class="col-xs-6 col-md mb4-m">
+                  <div class="title">Community</div>
+                  <a href="/staff">Staff</a>
+                  <a href="/blog">Blog</a>
+                  <a href="/events">Events</a>
+                  <a href="/challenges">Challenges</a>
+                </div>
+                <div class="col-xs-6 col-md mb4-m">
+                  <div class="title">Support</div>
+                  <a href="/contact">Contact</a>
+                  <a href="/forums/3">Forum</a>
+                  <a href="/parents">Parents</a>
+                  <a href="/status">Status</a>
+                </div>
+                <div class="col-xs-12 col-md">
+                  <div class="title">Legal</div>
+                  <a href="/terms">Terms of Service</a>
+                  <a href="/privacy">Privacy Policy</a>
+                  <a href="/terms#refund-policy">Refund Policy</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function toggleDropdown() {
+        var elm = document.getElementsByClassName("navbar-dropdown")[0]
+        var icon = document.getElementsByClassName("dropdown-icon")[0]
+        elm.classList.toggle("hidden")
+        icon.classList.toggle("up")
+      }
+      function toggleNavbar() {
+        var navbar = document.getElementsByClassName("navbar")[0]
+        navbar.classList.toggle("open")
+      }
+    </script>
+  </body>
+</html>
