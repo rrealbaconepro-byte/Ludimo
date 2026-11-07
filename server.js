@@ -1,10 +1,14 @@
 import express from "express";
 import cors from "cors";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import path from "path";
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,29 +27,25 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-// Note: Analytics only works in the browser, not on the server
-// const analytics = getAnalytics(firebaseApp);
-
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public")); // put your frontend files in /public
 
-// Health check (Render uses this)
+// Serve static files from the "public" folder
+app.use(express.static(path.join(__dirname, "public")));
+
+// Health check for Render
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", service: "Ludimo" });
 });
 
-// Example API route
-app.get("/api/status", (req, res) => {
-  res.json({
-    message: "Ludimo server is running",
-    firebaseProject: firebaseConfig.projectId
-  });
+// Explicitly serve index.html on the root
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Fallback for SPA
+// Fallback for SPA / any other route
 app.get("*", (req, res) => {
-  res.sendFile("index.html", { root: "public" });
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(PORT, () => {
