@@ -30,22 +30,22 @@ const firebaseApp = initializeApp(firebaseConfig);
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the "public" folder
-app.use(express.static(path.join(__dirname, "public")));
+// Serve static files from the root folder
+app.use(express.static(__dirname));
 
-// Health check for Render
+// Health check
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", service: "Ludimo" });
 });
 
-// Explicitly serve index.html on the root
+// Serve index.html on root
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Fallback for SPA / any other route
+// Fallback for SPA
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.listen(PORT, () => {
