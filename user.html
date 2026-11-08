@@ -8,8 +8,30 @@
     <meta property="og:site_name" content="Ludimo!" />
     <meta property="og:title" content="Users - Ludimo!" />
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+    <style>
+      .top-user-bar {
+        background: #7b2cbf;
+        color: white;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .top-user-bar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 2px solid white;
+      }
+    </style>
+
     <script>
-      // Minimal route stub to prevent errors
       window.route = function(name, params) {
         const routes = {
           "api.users.all": "/api/users",
@@ -28,6 +50,17 @@
   </head>
   <body>
     <div class="content" id='app'>
+
+      <!-- Purple logged-in bar -->
+      <div class="top-user-bar" id="userBar" style="display: none;">
+        <span>👥 0</span>
+        <span>✉️ 0</span>
+        <span>😊 0</span>
+        <span id="topUsername">Player</span>
+        <span>◆ 1</span>
+        <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
+      </div>
+
       <nav class='navbar '>
         <div class='container'>
           <ul class='left'>
@@ -43,7 +76,7 @@
             <li><a href="https://ludimo.de5.net/download.html">Download</a></li>
             <li><a href="https://ludimo.de5.net/upgrade.html">Upgrade</a></li>
           </ul>
-          <ul class="right no-padding">
+          <ul class="right no-padding" id="authButtons">
             <li><a href="https://ludimo.de5.net/login.html">Login</a></li>
             <li><a href="https://ludimo.de5.net/register.html">Register</a></li>
           </ul>
@@ -99,6 +132,49 @@
     </div>
 
     <script>
+      // ========== FIREBASE ==========
+      const firebaseConfig = {
+        apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+        authDomain: "ludimo-2d3ae.firebaseapp.com",
+        projectId: "ludimo-2d3ae",
+        storageBucket: "ludimo-2d3ae.firebasestorage.app",
+        messagingSenderId: "229714978642",
+        appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+        measurementId: "G-N83VLBHX2T"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // ========== KEEP USER LOGGED IN ==========
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const userDoc = await db.collection("users").doc(user.uid).get();
+          const data = userDoc.data() || {};
+          const username = data.username || user.displayName || "Player";
+
+          // Show purple bar + username
+          document.getElementById("topUsername").innerText = username;
+          document.getElementById("userBar").style.display = "flex";
+
+          // Replace Login/Register with Logout
+          document.getElementById("authButtons").innerHTML = `
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+          `;
+
+          document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            await auth.signOut();
+            window.location.href = "https://ludimo.de5.net/login.html";
+          });
+
+        } else {
+          // Optional: keep Login/Register visible if not logged in
+          // (or redirect if you want this page protected)
+        }
+      });
+
       function toggleNavbar() {
         var navbar = document.getElementsByClassName("navbar")[0];
         navbar.classList.toggle("open");
