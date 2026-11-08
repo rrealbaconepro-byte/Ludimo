@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home - Ludimo!</title>
+  <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    body { background: #f5f5f5; margin: 0; font-family: sans-serif; }
+    .top-bar {
+      background: #7b2cbf;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 15px;
+    }
+    .top-bar img { width: 32px; height: 32px; border-radius: 6px; border: 2px solid white; }
+    .main { display: flex; gap: 30px; padding: 30px; max-width: 1200px; margin: 0 auto; }
+    .left-panel { width: 220px; }
+    .avatar-box {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .avatar-box img { width: 140px; }
+    .customize-btn {
+      display: inline-block;
+      margin-top: 10px;
+      color: #7b2cbf;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .spirit-box {
+      background: #1a1a1a;
+      color: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    .content-area { flex: 1; }
+    .section-title { font-size: 20px; font-weight: bold; margin: 25px 0 15px; }
+  </style>
+</head>
+<body>
+
+  <!-- Purple Top Bar (like your 3rd image) -->
+  <div class="top-bar">
+    <span>👥 0</span>
+    <span>✉️ 0</span>
+    <span>😊 0</span>
+    <span id="topUsername">Loading...</span>
+    <span>◆ 1</span>
+    <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
+  </div>
+
+  <div class="main">
+    <!-- Left side -->
+    <div class="left-panel">
+      <div class="avatar-box">
+        <div style="font-size:18px; margin-bottom:10px;">Hi, <span id="welcomeName">...</span></div>
+        <img id="mainAvatar" src="https://via.placeholder.com/140" alt="Bopi">
+        <div class="customize-btn" onclick="window.location.href='customize.html'">Customize</div>
+      </div>
+
+      <div class="spirit-box">
+        <div style="font-weight:bold; margin-bottom:8px;">Spirit</div>
+        <div>Spirit <span id="spiritLevel">1</span></div>
+        <div style="margin-top:8px; background:#333; height:10px; border-radius:5px;">
+          <div id="spiritBar" style="background:#7b2cbf; height:100%; width:0%; border-radius:5px;"></div>
+        </div>
+        <div style="font-size:13px; margin-top:6px;">
+          <span id="spiritPoints">0</span>/150
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side -->
+    <div class="content-area">
+      <div class="section-title">Featured Levels</div>
+      <p style="color:#888;">Levels will appear here later...</p>
+
+      <div class="section-title">Recently played</div>
+      <p style="color:#888;">No results found</p>
+
+      <div class="section-title">Your buddies are playing</div>
+      <p style="color:#888;">No results found</p>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+      authDomain: "ludimo-2d3ae.firebaseapp.com",
+      projectId: "ludimo-2d3ae",
+      storageBucket: "ludimo-2d3ae.firebasestorage.app",
+      messagingSenderId: "229714978642",
+      appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+      measurementId: "G-N83VLBHX2T"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // ========== SPECIAL COOKIE SYSTEM ==========
+    function generateLongToken() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
+      let token = "";
+      for (let i = 0; i < 1000; i++) {
+        token += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return token;
+    }
+
+    function setSpecialCookie(token) {
+      // Cookie lasts 30 days
+      const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+      document.cookie = `DoughOvenChockletFreezecookie=${token}; expires=${expires}; path=/; SameSite=Lax`;
+    }
+
+    function getSpecialCookie() {
+      const match = document.cookie.match(/(?:^|; )DoughOvenChockletFreezecookie=([^;]*)/);
+      return match ? match[1] : null;
+    }
+
+    // ========== DAILY SPIRIT SYSTEM ==========
+    async function handleDailySpirit(uid) {
+      const userRef = db.collection("users").doc(uid);
+      const doc = await userRef.get();
+      const data = doc.data() || {};
+
+      const today = new Date().toDateString();
+      const lastLogin = data.lastLoginDate || null;
+      let spirit = data.spirit || 0;
+
+      if (lastLogin !== today) {
+        // First login of the day → give +25
+        spirit += 25;
+        await userRef.set({
+          spirit: spirit,
+          lastLoginDate: today
+        }, { merge: true });
+      }
+
+      // Update UI
+      document.getElementById("spiritPoints").innerText = spirit;
+      const percent = Math.min((spirit % 150) / 150 * 100, 100);
+      document.getElementById("spiritBar").style.width = percent + "%";
+      document.getElementById("spiritLevel").innerText = Math.floor(spirit / 150) + 1;
+    }
+
+    // ========== MAIN AUTH CHECK ==========
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        // Not logged in → go to login
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Get username from Firestore
+      const userDoc = await db.collection("users").doc(user.uid).get();
+      const userData = userDoc.data() || {};
+      const username = userData.username || user.displayName || "Player";
+
+      // Show username everywhere
+      document.getElementById("welcomeName").innerText = username;
+      document.getElementById("topUsername").innerText = username;
+
+      // Handle daily spirit
+      await handleDailySpirit(user.uid);
+
+      // Set the special long cookie
+      let token = getSpecialCookie();
+      if (!token) {
+        token = generateLongToken();
+        setSpecialCookie(token);
+        // Optionally save token to Firestore if you want later verification
+        await db.collection("users").doc(user.uid).set({ specialToken: token }, { merge: true });
+      }
+    });
+  </script>
+</body>
+</html>
