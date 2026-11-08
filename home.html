@@ -1,192 +1,187 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home - Ludimo!</title>
-  <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
-  
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<html class=''>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
+    <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
+    <title>Home - Ludimo!</title>
+    <meta property="og:site_name" content="Ludimo!" />
+    <meta property="og:title" content="Home - Ludimo!" />
 
-  <style>
-    body { background: #f5f5f5; margin: 0; font-family: sans-serif; }
-    .top-bar {
-      background: #7b2cbf;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      font-size: 15px;
-    }
-    .top-bar img { width: 32px; height: 32px; border-radius: 6px; border: 2px solid white; }
-    .main { display: flex; gap: 30px; padding: 30px; max-width: 1200px; margin: 0 auto; }
-    .left-panel { width: 220px; }
-    .avatar-box {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    .avatar-box img { width: 140px; }
-    .customize-btn {
-      display: inline-block;
-      margin-top: 10px;
-      color: #7b2cbf;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .spirit-box {
-      background: #1a1a1a;
-      color: white;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 20px;
-    }
-    .content-area { flex: 1; }
-    .section-title { font-size: 20px; font-weight: bold; margin: 25px 0 15px; }
-  </style>
-</head>
-<body>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
-  <!-- Purple Top Bar (like your 3rd image) -->
-  <div class="top-bar">
-    <span>👥 0</span>
-    <span>✉️ 0</span>
-    <span>😊 0</span>
-    <span id="topUsername">Loading...</span>
-    <span>◆ 1</span>
-    <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
-  </div>
+    <style>
+      .top-user-bar {
+        background: #7b2cbf;
+        color: white;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .top-user-bar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 2px solid white;
+      }
+      .welcome-box {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content" id='app'>
 
-  <div class="main">
-    <!-- Left side -->
-    <div class="left-panel">
-      <div class="avatar-box">
-        <div style="font-size:18px; margin-bottom:10px;">Hi, <span id="welcomeName">...</span></div>
-        <img id="mainAvatar" src="https://via.placeholder.com/140" alt="Bopi">
-        <div class="customize-btn" onclick="window.location.href='customize.html'">Customize</div>
+      <!-- Purple logged-in bar -->
+      <div class="top-user-bar" id="userBar" style="display: none;">
+        <span>👥 0</span>
+        <span>✉️ 0</span>
+        <span>😊 0</span>
+        <span id="topUsername">Player</span>
+        <span>◆ 1</span>
+        <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
       </div>
 
-      <div class="spirit-box">
-        <div style="font-weight:bold; margin-bottom:8px;">Spirit</div>
-        <div>Spirit <span id="spiritLevel">1</span></div>
-        <div style="margin-top:8px; background:#333; height:10px; border-radius:5px;">
-          <div id="spiritBar" style="background:#7b2cbf; height:100%; width:0%; border-radius:5px;"></div>
+      <nav class='navbar '>
+        <div class='container'>
+          <ul class='left'>
+            <li class="logo">
+              <a href='/'>
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt='landing'>
+              </a>
+              <div class="hamburger-menu" onclick="toggleNavbar()"><i class="fas fa-bars"></i></div>
+            </li>
+            <li><a href="https://ludimo.de5.net/play.html">Play</a></li>
+            <li><a href="https://ludimo.de5.net/shop.html">Shop</a></li>
+            <li><a href="https://ludimo.de5.net/user.html">Users</a></li>
+            <li><a href="https://ludimo.de5.net/download.html">Download</a></li>
+            <li><a href="https://ludimo.de5.net/upgrade.html">Upgrade</a></li>
+          </ul>
+          <ul class="right no-padding" id="authButtons">
+            <li><a href="https://ludimo.de5.net/login.html">Login</a></li>
+            <li><a href="https://ludimo.de5.net/register.html">Register</a></li>
+          </ul>
         </div>
-        <div style="font-size:13px; margin-top:6px;">
-          <span id="spiritPoints">0</span>/150
+      </nav>
+      <div class="nav-push"></div>
+
+      <div class="container">
+        <div class="welcome-box">
+          <h2>Hi, <span id="welcomeName">Player</span>!</h2>
+          <p>Welcome back to Ludimo.</p>
+          <br>
+          <a href="customize.html" class="button">Customize your Bopi</a>
+        </div>
+
+        <div class='col-md-8 col-md-offset-2 col-xs-12'>
+          <!-- You can put more homepage content here later -->
+          <p style="text-align:center; color:#888; margin-top:40px;">Featured levels and more coming soon...</p>
+        </div>
+      </div>
+
+      <div class="footer ">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs col-md-4 company-stuff">
+              <div class="logo">
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="">
+              </div>
+              <div class="company-text"><span class="copyright">©</span> 2026 Ludimo!</div>
+              <div class="social-media">
+                <a href='https://x.com/playludimo' title='Twitter'><i class="fab fa-twitter"></i></a>
+                <a href='https://www.twitch.tv/ludimo' title='Twitch'><i class="fab fa-twitch"></i></a>
+                <a href='https://www.youtube.com/@Bbrootorg' title='Youtube'><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-8 footer-links">
+              <div class="row">
+                <div class="col-xs-6 col-md mb4-m">
+                  <div class="title">Community</div>
+                  <a href="/staff">Staff</a>
+                  <a href="/blog">Blog</a>
+                  <a href="/events">Events</a>
+                  <a href="/challenges">Challenges</a>
+                </div>
+                <div class="col-xs-6 col-md mb4-m">
+                  <div class="title">Support</div>
+                  <a href="/contact">Contact</a>
+                  <a href="/parents">Parents</a>
+                  <a href="/status">Status</a>
+                </div>
+                <div class="col-xs-12 col-md">
+                  <div class="title">Legal</div>
+                  <a href="/terms">Terms of Service</a>
+                  <a href="/privacy">Privacy Policy</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Right side -->
-    <div class="content-area">
-      <div class="section-title">Featured Levels</div>
-      <p style="color:#888;">Levels will appear here later...</p>
+    <script>
+      // ========== FIREBASE ==========
+      const firebaseConfig = {
+        apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+        authDomain: "ludimo-2d3ae.firebaseapp.com",
+        projectId: "ludimo-2d3ae",
+        storageBucket: "ludimo-2d3ae.firebasestorage.app",
+        messagingSenderId: "229714978642",
+        appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+        measurementId: "G-N83VLBHX2T"
+      };
 
-      <div class="section-title">Recently played</div>
-      <p style="color:#888;">No results found</p>
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
 
-      <div class="section-title">Your buddies are playing</div>
-      <p style="color:#888;">No results found</p>
-    </div>
-  </div>
+      // ========== KEEP USER LOGGED IN ON EVERY PAGE ==========
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          // User is logged in
+          const userDoc = await db.collection("users").doc(user.uid).get();
+          const data = userDoc.data() || {};
+          const username = data.username || user.displayName || "Player";
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
-      authDomain: "ludimo-2d3ae.firebaseapp.com",
-      projectId: "ludimo-2d3ae",
-      storageBucket: "ludimo-2d3ae.firebasestorage.app",
-      messagingSenderId: "229714978642",
-      appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
-      measurementId: "G-N83VLBHX2T"
-    };
+          // Show username
+          document.getElementById("welcomeName").innerText = username;
+          document.getElementById("topUsername").innerText = username;
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+          // Show purple bar
+          document.getElementById("userBar").style.display = "flex";
 
-    // ========== SPECIAL COOKIE SYSTEM ==========
-    function generateLongToken() {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=";
-      let token = "";
-      for (let i = 0; i < 1000; i++) {
-        token += chars.charAt(Math.floor(Math.random() * chars.length));
+          // Hide Login / Register buttons
+          document.getElementById("authButtons").innerHTML = `
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+          `;
+
+          // Logout button
+          document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            await auth.signOut();
+            window.location.href = "https://ludimo.de5.net/login.html";
+          });
+
+        } else {
+          // Not logged in → redirect to login
+          window.location.href = "https://ludimo.de5.net/login.html";
+        }
+      });
+
+      function toggleNavbar() {
+        var navbar = document.getElementsByClassName("navbar")[0];
+        navbar.classList.toggle("open");
       }
-      return token;
-    }
-
-    function setSpecialCookie(token) {
-      // Cookie lasts 30 days
-      const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
-      document.cookie = `DoughOvenChockletFreezecookie=${token}; expires=${expires}; path=/; SameSite=Lax`;
-    }
-
-    function getSpecialCookie() {
-      const match = document.cookie.match(/(?:^|; )DoughOvenChockletFreezecookie=([^;]*)/);
-      return match ? match[1] : null;
-    }
-
-    // ========== DAILY SPIRIT SYSTEM ==========
-    async function handleDailySpirit(uid) {
-      const userRef = db.collection("users").doc(uid);
-      const doc = await userRef.get();
-      const data = doc.data() || {};
-
-      const today = new Date().toDateString();
-      const lastLogin = data.lastLoginDate || null;
-      let spirit = data.spirit || 0;
-
-      if (lastLogin !== today) {
-        // First login of the day → give +25
-        spirit += 25;
-        await userRef.set({
-          spirit: spirit,
-          lastLoginDate: today
-        }, { merge: true });
-      }
-
-      // Update UI
-      document.getElementById("spiritPoints").innerText = spirit;
-      const percent = Math.min((spirit % 150) / 150 * 100, 100);
-      document.getElementById("spiritBar").style.width = percent + "%";
-      document.getElementById("spiritLevel").innerText = Math.floor(spirit / 150) + 1;
-    }
-
-    // ========== MAIN AUTH CHECK ==========
-    auth.onAuthStateChanged(async (user) => {
-      if (!user) {
-        // Not logged in → go to login
-        window.location.href = "login.html";
-        return;
-      }
-
-      // Get username from Firestore
-      const userDoc = await db.collection("users").doc(user.uid).get();
-      const userData = userDoc.data() || {};
-      const username = userData.username || user.displayName || "Player";
-
-      // Show username everywhere
-      document.getElementById("welcomeName").innerText = username;
-      document.getElementById("topUsername").innerText = username;
-
-      // Handle daily spirit
-      await handleDailySpirit(user.uid);
-
-      // Set the special long cookie
-      let token = getSpecialCookie();
-      if (!token) {
-        token = generateLongToken();
-        setSpecialCookie(token);
-        // Optionally save token to Firestore if you want later verification
-        await db.collection("users").doc(user.uid).set({ specialToken: token }, { merge: true });
-      }
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
