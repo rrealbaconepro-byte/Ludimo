@@ -1,182 +1,17 @@
 <!DOCTYPE html>
 <html class=''>
   <head>
-    <script>
-      let cdn = "https://cdn.bopimo.com";
-      function localFallback() {
-        // js
-        document.querySelectorAll(`script[src^="${cdn}"]`).forEach((script) => {
-          let url = script.getAttribute('src')
-          let path = new URL(url).pathname.split('static')[1]
-          var script = document.createElement('script');
-          script.onload = function() {
-            console.log('loading script')
-          };
-          script.src = path;
-          document.head.appendChild(script);
-        })
-      }
-      function localCssFallback() {
-        // css
-        document.querySelectorAll(`link[href^="${cdn}"]`).forEach((style) => {
-          console.log(style)
-          let url = style.getAttribute('href')
-          let path = new URL(url).pathname.split('static')[1]
-          var link = document.createElement('link');
-          link.href = path
-          link.rel = 'stylesheet'
-          document.head.appendChild(link);
-        })
-      }
-      function localFallbacks() {
-        localFallback()
-        localCssFallback()
-      }
-      function cdnCheck() {
-        window.Vue || (localFallbacks())
-      }
-    </script>
-    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.bopimo.com/static/dist/js/manifest.e4e0a03ba355db6dd283217de1fee883.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/vendor.620d5822184d7b9e3effd43cd040c482.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/babylonjs.722a531baab17568a354a9150d9c067e.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/main.953757f61abe75fe2499c6754141408b.js" crossorigin="anonymous" onerror="cdnCheck()" defer></script>
-    <meta name="csrf-token" content="mbNeih8M61hHLihIAyVn4fJAopAsJSc4X8WyGCFb">
-    <script type="text/javascript">
-      const Ziggy = {
-        "url": "https:\/\/www.ludimo.de5.net",
-        "port": null,
-        "defaults": {},
-        "routes": {
-          "api.users.all": {
-            "uri": "api\/users",
-            "methods": ["GET", "HEAD"]
-          },
-          "api.comments.get": {
-            "uri": "api\/comments\/{type}\/{id}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["type", "id"]
-          },
-          "api.shop.search": {
-            "uri": "api\/shop\/search",
-            "methods": ["GET", "HEAD"]
-          },
-          "shop.item": {
-            "uri": "items\/{id}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["id"]
-          },
-          "shop.item.edit": {
-            "uri": "items\/{id}\/edit",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["id"]
-          },
-          "user.profile": {
-            "uri": "users\/{username}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["username"]
-          },
-          "level": {
-            "uri": "levels\/{level}",
-            "methods": ["GET", "HEAD"],
-            "wheres": {
-              "level": "[0-9]+"
-            },
-            "parameters": ["level"]
-          },
-          "user.levels": {
-            "uri": "users\/{username}\/levels",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["username"]
-          },
-          "ratings.all": {
-            "uri": "ratings",
-            "methods": ["GET", "HEAD"]
-          },
-          "level.create": {
-            "uri": "levels\/create",
-            "methods": ["GET", "HEAD"]
-          },
-          "level.edit": {
-            "uri": "levels\/{level}\/edit",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["level"],
-            "bindings": {
-              "level": "id"
-            }
-          },
-          "ratings.search": {
-            "uri": "api\/ratings",
-            "methods": ["GET", "HEAD"]
-          },
-          "join-token.create": {
-            "uri": "api\/auth\/join-token",
-            "methods": ["POST"]
-          },
-          "level.ratings.record": {
-            "uri": "api\/levels\/{id}\/ratings\/record",
-            "methods": ["POST"],
-            "parameters": ["id"]
-          },
-          "ratings.delete": {
-            "uri": "api\/ratings\/{id}\/delete",
-            "methods": ["POST"],
-            "parameters": ["id"]
-          },
-          "conversation.all": {
-            "uri": "api\/conversations",
-            "methods": ["GET", "HEAD"]
-          },
-          "conversation.search": {
-            "uri": "api\/conversation\/search",
-            "methods": ["GET", "HEAD"]
-          },
-          "auth.update": {
-            "uri": "api\/auth\/user",
-            "methods": ["POST"]
-          },
-          "auth.logoutOtherDevices": {
-            "uri": "api\/auth\/logout-other-devices",
-            "methods": ["POST"]
-          },
-          "auth.discord.link": {
-            "uri": "api\/auth\/link-discord",
-            "methods": ["GET", "HEAD"]
-          },
-          "discord-link.sync": {
-            "uri": "api\/auth\/discord-link\/sync",
-            "methods": ["POST"]
-          },
-          "discord-link.delete": {
-            "uri": "api\/auth\/discord-link\/delete",
-            "methods": ["POST"]
-          },
-          "auth.customTheme.create": {
-            "uri": "api\/auth\/custom-theme",
-            "methods": ["POST"]
-          },
-          "auth.customTheme.update": {
-            "uri": "api\/auth\/custom-theme\/{customTheme}",
-            "methods": ["POST"],
-            "parameters": ["customTheme"],
-            "bindings": {
-              "customTheme": "id"
-            }
-          }
-        }
-      };
-      ! function(t, r) {
-        "object" == typeof exports && "undefined" != typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define(r) : (t || self).route = r()
-      }(this, function() {
-        // ... (Ziggy library code stays the same)
-      });
-    </script>
+    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
     <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
     <title>Register - Ludimo!</title>
     <meta property="og:site_name" content="Ludimo!" />
     <meta property="og:title" content="Register - Ludimo!" />
-    <script src="https://hcaptcha.com/1/api.js?" async defer></script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
   </head>
   <body>
     <div class="content" id='app'>
@@ -189,63 +24,75 @@
               </a>
               <div class="hamburger-menu" onclick="toggleNavbar()"><i class="fas fa-bars"></i></div>
             </li>
-            <li><a href="/play">Play</a></li>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/forums/">Forums</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/download">Download</a></li>
-            <li><a href="/upgrade">Upgrade</a></li>
-            <li>
-              <a class='event' href="/events/halloween-2026">Halloween</a>
-            </li>
+            <li><a href="https://ludimo.de5.net/play.html">Play</a></li>
+            <li><a href="https://ludimo.de5.net/shop.html">Shop</a></li>
+            <li><a href="https://ludimo.de5.net/user.html">Users</a></li>
+            <li><a href="https://ludimo.de5.net/download.html">Download</a></li>
+            <li><a href="https://ludimo.de5.net/upgrade.html">Upgrade</a></li>
           </ul>
           <ul class="right no-padding">
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <li><a href="https://ludimo.de5.net/login.html">Login</a></li>
+            <li><a href="https://ludimo.de5.net/register.html">Register</a></li>
           </ul>
         </div>
       </nav>
       <div class="nav-push"></div>
+
       <div class="container ">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
           <div class="h3 pb2 text-center">Register</div>
           <div class="shop-card">
             <div class='card-content'>
-              <form class="form p1" action='/register' method='POST'>
-                <label for='' class='form-label'>Username</label>
-                <input type='text' name='username' value='' class='form-input' placeholder='Username'>
-                <label for='' class='form-label'>Email</label>
-                <input type='email' name='email' value='' class='form-input' placeholder='Email'>
-                <label for='' class='form-label'>Password</label>
-                <input type='password' name='password' class='form-input' placeholder='Password'>
-                <label class='form-label'>Birthday <i class="fas fa-question-circle" v-tooltip="{content: 'This is used for age verification purposes, we do not store this information.', placement: 'top', class: 'tooltip tooltip-long', delay: {show: 650}, hideOnTargetClick: false}"></i></label>
-                <input class='form-input' name='birthday' type="date"></input>
-                <div class='mb2'>
-                  <div data-sitekey="cb3094f0-10f2-4582-b79c-79926398fabe" class="h-captcha"></div>
-                </div>
+              <form class="form p1" id="registerForm">
+                <label class='form-label'>Username</label>
+                <input type='text' id="username" class='form-input' placeholder='Username' required>
+
+                <label class='form-label'>Email</label>
+                <input type='email' id="email" class='form-input' placeholder='Email' required>
+
+                <label class='form-label'>Password</label>
+                <input type='password' id="password" class='form-input' placeholder='Password' required minlength="6">
+
+                <label class='form-label'>Birthday</label>
+                <input class='form-input' id="birthday" type="date" required>
+
                 <div class='mb2'>
                   <div class='checkbox-agree'>
                     <div class='checkbox'>
-                      <input name='terms_of_service' id='terms_of_service' type='checkbox'>
+                      <input id='terms_of_service' type='checkbox' required>
                     </div>
                     <div class="flex-grow lh2">
-                      <label for='terms_of_service'>I have read and agree to Ludimo!'s <a class='link' href='/terms'>terms of service</a> and <a class='link' href='/privacy'>privacy policy</a>.</label>
+                      <label for='terms_of_service'>
+                        I have read and agree to Ludimo!'s 
+                        <a class='link' href='https://ludimo.de5.net/terms.html'>terms of service</a> 
+                        and 
+                        <a class='link' href='https://ludimo.de5.net/privacy.html'>privacy policy</a>.
+                      </label>
                     </div>
                   </div>
                 </div>
-                <button type='submit' class="button w100 pb2">Register</button>
-                <input type="hidden" name="_token" value="mbNeih8M61hHLihIAyVn4fJAopAsJSc4X8WyGCFb" autocomplete="off">
+
+                <div id="errorMessage" style="color: #ff4d4d; margin-bottom: 12px; display: none;"></div>
+                <div id="successMessage" style="color: #4caf50; margin-bottom: 12px; display: none;"></div>
+
+                <button type='submit' class="button w100 pb2" id="registerBtn">Register</button>
               </form>
-              <div class='text-center pt2 pb1'><a href='/login'>Already have an account?</a></div>
+
+              <div class='text-center pt2 pb1'>
+                <a href='https://ludimo.de5.net/login.html'>Already have an account?</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="footer ">
         <div class="container">
           <div class="row">
             <div class="col-xs col-md-4 company-stuff">
-              <div class="logo"><img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt=""></div>
+              <div class="logo">
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="">
+              </div>
               <div class="company-text"><span class="copyright">©</span> 2026 Ludimo!</div>
               <div class="social-media">
                 <a href='https://x.com/playludimo' title='Twitter'><i class="fab fa-twitter"></i></a>
@@ -265,15 +112,13 @@
                 <div class="col-xs-6 col-md mb4-m">
                   <div class="title">Support</div>
                   <a href="/contact">Contact</a>
-                  <a href="/forums/3">Forum</a>
                   <a href="/parents">Parents</a>
                   <a href="/status">Status</a>
                 </div>
                 <div class="col-xs-12 col-md">
                   <div class="title">Legal</div>
-                  <a href="/terms">Terms of Service</a>
-                  <a href="/privacy">Privacy Policy</a>
-                  <a href="/terms#refund-policy">Refund Policy</a>
+                  <a href="https://ludimo.de5.net/terms.html">Terms of Service</a>
+                  <a href="https://ludimo.de5.net/privacy.html">Privacy Policy</a>
                 </div>
               </div>
             </div>
@@ -281,16 +126,95 @@
         </div>
       </div>
     </div>
+
     <script>
-      function toggleDropdown() {
-        var elm = document.getElementsByClassName("navbar-dropdown")[0]
-        var icon = document.getElementsByClassName("dropdown-icon")[0]
-        elm.classList.toggle("hidden")
-        icon.classList.toggle("up")
-      }
+      // ========== FIREBASE CONFIG ==========
+      const firebaseConfig = {
+        apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+        authDomain: "ludimo-2d3ae.firebaseapp.com",
+        projectId: "ludimo-2d3ae",
+        storageBucket: "ludimo-2d3ae.firebasestorage.app",
+        messagingSenderId: "229714978642",
+        appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+        measurementId: "G-N83VLBHX2T"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // ========== REGISTER LOGIC ==========
+      const form = document.getElementById('registerForm');
+      const errorMsg = document.getElementById('errorMessage');
+      const successMsg = document.getElementById('successMessage');
+      const registerBtn = document.getElementById('registerBtn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const birthday = document.getElementById('birthday').value;
+
+        // Reset messages
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+        registerBtn.disabled = true;
+        registerBtn.textContent = 'Creating account...';
+
+        try {
+          // 1. Create Auth account
+          const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+          const user = userCredential.user;
+
+          // 2. Save extra data in Firestore
+          await db.collection('users').doc(user.uid).set({
+            username: username,
+            email: email,
+            birthday: birthday,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            coins: 0,
+            isGold: false
+          });
+
+          // Optional: also update displayName
+          await user.updateProfile({
+            displayName: username
+          });
+
+          successMsg.textContent = 'Account created successfully! Redirecting...';
+          successMsg.style.display = 'block';
+
+          // Redirect after short delay
+          setTimeout(() => {
+            window.location.href = 'https://ludimo.de5.net/play.html';
+          }, 1500);
+
+        } catch (error) {
+          console.error(error);
+          let message = 'Something went wrong. Please try again.';
+
+          if (error.code === 'auth/email-already-in-use') {
+            message = 'This email is already registered.';
+          } else if (error.code === 'auth/weak-password') {
+            message = 'Password should be at least 6 characters.';
+          } else if (error.code === 'auth/invalid-email') {
+            message = 'Please enter a valid email.';
+          }
+
+          errorMsg.textContent = message;
+          errorMsg.style.display = 'block';
+          registerBtn.disabled = false;
+          registerBtn.textContent = 'Register';
+        }
+      });
+
+      // Navbar toggle
       function toggleNavbar() {
-        var navbar = document.getElementsByClassName("navbar")[0]
-        navbar.classList.toggle("open")
+        var navbar = document.getElementsByClassName("navbar")[0];
+        navbar.classList.toggle("open");
       }
     </script>
   </body>
