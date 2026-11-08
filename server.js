@@ -1,4 +1,4 @@
-```javascript
+
 import express from "express";
 import dotenv from "dotenv";
 
@@ -41,4 +41,3 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Maintenance page running on port ${PORT}`);
 });
-```
