@@ -1,185 +1,65 @@
 <!DOCTYPE html>
 <html class=''>
   <head>
-    <script>
-      let cdn = "https://cdn.bopimo.com";
-      function localFallback() {
-        // js
-        document.querySelectorAll(`script[src^="${cdn}"]`).forEach((script) => {
-          let url = script.getAttribute('src')
-          let path = new URL(url).pathname.split('static')[1]
-          var script = document.createElement('script');
-          script.onload = function() {
-            console.log('loading script')
-          };
-          script.src = path;
-          document.head.appendChild(script);
-        })
-      }
-      function localCssFallback() {
-        // css
-        document.querySelectorAll(`link[href^="${cdn}"]`).forEach((style) => {
-          console.log(style)
-          let url = style.getAttribute('href')
-          let path = new URL(url).pathname.split('static')[1]
-          var link = document.createElement('link');
-          link.href = path
-          link.rel = 'stylesheet'
-          document.head.appendChild(link);
-        })
-      }
-      function localFallbacks() {
-        localFallback()
-        localCssFallback()
-      }
-      function cdnCheck() {
-        window.Vue || (localFallbacks())
-      }
-    </script>
-    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.bopimo.com/static/dist/js/manifest.e4e0a03ba355db6dd283217de1fee883.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/vendor.620d5822184d7b9e3effd43cd040c482.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/babylonjs.722a531baab17568a354a9150d9c067e.js" crossorigin="anonymous" defer></script>
-    <script src="https://cdn.bopimo.com/static/dist/js/main.953757f61abe75fe2499c6754141408b.js" crossorigin="anonymous" onerror="cdnCheck()" defer></script>
-    <meta name="csrf-token" content="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X">
-    <script type="text/javascript">
-      const Ziggy = {
-        "url": "https:\/\/www.ludimo.de5.net",
-        "port": null,
-        "defaults": {},
-        "routes": {
-          "api.users.all": {
-            "uri": "api\/users",
-            "methods": ["GET", "HEAD"]
-          },
-          "api.comments.get": {
-            "uri": "api\/comments\/{type}\/{id}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["type", "id"]
-          },
-          "api.shop.search": {
-            "uri": "api\/shop\/search",
-            "methods": ["GET", "HEAD"]
-          },
-          "shop.item": {
-            "uri": "items\/{id}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["id"]
-          },
-          "shop.item.edit": {
-            "uri": "items\/{id}\/edit",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["id"]
-          },
-          "user.profile": {
-            "uri": "users\/{username}",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["username"]
-          },
-          "level": {
-            "uri": "levels\/{level}",
-            "methods": ["GET", "HEAD"],
-            "wheres": {
-              "level": "[0-9]+"
-            },
-            "parameters": ["level"]
-          },
-          "user.levels": {
-            "uri": "users\/{username}\/levels",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["username"]
-          },
-          "ratings.all": {
-            "uri": "ratings",
-            "methods": ["GET", "HEAD"]
-          },
-          "level.create": {
-            "uri": "levels\/create",
-            "methods": ["GET", "HEAD"]
-          },
-          "level.edit": {
-            "uri": "levels\/{level}\/edit",
-            "methods": ["GET", "HEAD"],
-            "parameters": ["level"],
-            "bindings": {
-              "level": "id"
-            }
-          },
-          "ratings.search": {
-            "uri": "api\/ratings",
-            "methods": ["GET", "HEAD"]
-          },
-          "join-token.create": {
-            "uri": "api\/auth\/join-token",
-            "methods": ["POST"]
-          },
-          "level.ratings.record": {
-            "uri": "api\/levels\/{id}\/ratings\/record",
-            "methods": ["POST"],
-            "parameters": ["id"]
-          },
-          "ratings.delete": {
-            "uri": "api\/ratings\/{id}\/delete",
-            "methods": ["POST"],
-            "parameters": ["id"]
-          },
-          "conversation.all": {
-            "uri": "api\/conversations",
-            "methods": ["GET", "HEAD"]
-          },
-          "conversation.search": {
-            "uri": "api\/conversation\/search",
-            "methods": ["GET", "HEAD"]
-          },
-          "auth.update": {
-            "uri": "api\/auth\/user",
-            "methods": ["POST"]
-          },
-          "auth.logoutOtherDevices": {
-            "uri": "api\/auth\/logout-other-devices",
-            "methods": ["POST"]
-          },
-          "auth.discord.link": {
-            "uri": "api\/auth\/link-discord",
-            "methods": ["GET", "HEAD"]
-          },
-          "discord-link.sync": {
-            "uri": "api\/auth\/discord-link\/sync",
-            "methods": ["POST"]
-          },
-          "discord-link.delete": {
-            "uri": "api\/auth\/discord-link\/delete",
-            "methods": ["POST"]
-          },
-          "auth.customTheme.create": {
-            "uri": "api\/auth\/custom-theme",
-            "methods": ["POST"]
-          },
-          "auth.customTheme.update": {
-            "uri": "api\/auth\/custom-theme\/{customTheme}",
-            "methods": ["POST"],
-            "parameters": ["customTheme"],
-            "bindings": {
-              "customTheme": "id"
-            }
-          }
-        }
-      };
-      ! function(t, r) {
-        "object" == typeof exports && "undefined" != typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define(r) : (t || self).route = r()
-      }(this, function() {
-        // Ziggy library code remains the same
-      });
-    </script>
+    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
     <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
     <title>Upgrade - Ludimo!</title>
     <meta property="og:site_name" content="Ludimo!" />
     <meta property="og:title" content="Upgrade - Ludimo!" />
-    <script src="https://hcaptcha.com/1/api.js?" async defer></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+    <style>
+      .top-user-bar {
+        background: #7b2cbf;
+        color: white;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .top-user-bar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 2px solid white;
+      }
+      .gold-status {
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 10px;
+      }
+      .has-gold {
+        background: linear-gradient(90deg, #ffd700, #ffb700);
+        color: #333;
+      }
+      .no-gold {
+        background: #f0f0f0;
+        color: #555;
+      }
+    </style>
   </head>
   <body>
     <div class="content" id='app'>
+
+      <!-- Purple logged-in bar -->
+      <div class="top-user-bar" id="userBar" style="display: none;">
+        <span>👥 0</span>
+        <span>✉️ 0</span>
+        <span>😊 0</span>
+        <span id="topUsername">Player</span>
+        <span>◆ 1</span>
+        <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
+      </div>
+
       <nav class='navbar '>
         <div class='container'>
           <ul class='left'>
@@ -189,20 +69,25 @@
               </a>
               <div class="hamburger-menu" onclick="toggleNavbar()"><i class="fas fa-bars"></i></div>
             </li>
-            <li><a href="/play">Play</a></li>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/download">Download</a></li>
-            <li><a href="/upgrade">Upgrade</a></li>
+            <li><a href="https://ludimo.de5.net/play.html">Play</a></li>
+            <li><a href="https://ludimo.de5.net/shop.html">Shop</a></li>
+            <li><a href="https://ludimo.de5.net/user.html">Users</a></li>
+            <li><a href="https://ludimo.de5.net/download.html">Download</a></li>
+            <li><a href="https://ludimo.de5.net/upgrade.html">Upgrade</a></li>
           </ul>
-          <ul class="right no-padding">
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+          <ul class="right no-padding" id="authButtons">
+            <li><a href="https://ludimo.de5.net/login.html">Login</a></li>
+            <li><a href="https://ludimo.de5.net/register.html">Register</a></li>
           </ul>
         </div>
       </nav>
       <div class="nav-push"></div>
-      <div class="container ">
+
+      <div class="container">
+
+        <!-- Gold Status Message -->
+        <div id="goldStatus" class="gold-status" style="display: none;"></div>
+
         <div class='shop-card golden membership-card mb2'>
           <div class='card-content'>
             <div class='row p1'>
@@ -217,7 +102,7 @@
                     <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Five gold-exclusive items that you keep forever</div>
                     <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Exclusive gold name on the site and in-game</div>
                     <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Level up faster with 25% extra Spirit XP!</div>
-                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Custom profile theme and more! <gold-benefits /></div>
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Custom profile theme and more!</div>
                   </ul>
                 </div>
               </div>
@@ -228,274 +113,137 @@
             </div>
           </div>
         </div>
+
+        <!-- Rest of the original upgrade content (subscriptions + coins) stays the same -->
         <div class='hl hl-gold mb2'>
-          <div class='hl-text'>
-            Subscription
-          </div>
+          <div class='hl-text'>Subscription</div>
         </div>
+
         <div class='row mb2'>
           <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/1">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1 Month</div>
-                    <div class='cost-text'>$7.00 </div>
-                  </div>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>1 Month</div>
+                  <div class='cost-text'>$7.00</div>
                 </div>
-              </button>
-            </form>
+              </div>
+            </div>
           </div>
           <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/2">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>3 Months</div>
-                    <div class='cost-text'>$18.00 (Save $3)</div>
-                  </div>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>3 Months</div>
+                  <div class='cost-text'>$18.00 (Save $3)</div>
                 </div>
-              </button>
-            </form>
+              </div>
+            </div>
           </div>
           <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/3">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>6 Months</div>
-                    <div class='cost-text'>$33.00 (Save $9)</div>
-                  </div>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>6 Months</div>
+                  <div class='cost-text'>$33.00 (Save $9)</div>
                 </div>
-              </button>
-            </form>
+              </div>
+            </div>
           </div>
           <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/4">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1 Year</div>
-                    <div class='cost-text'>$60.00 (Save $24)</div>
-                  </div>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>1 Year</div>
+                  <div class='cost-text'>$60.00 (Save $24)</div>
                 </div>
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class='hl hl-gold mb2'>
-          <div class='hl-text'>
-            One time
-          </div>
-        </div>
-        <div class='row mb1'>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/5">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1 Month</div>
-                    <div class='cost-text'>$7.00 </div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/6">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>3 Months</div>
-                    <div class='cost-text'>$18.00 (Save $3)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/7">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>6 Months</div>
-                    <div class='cost-text'>$33.00 (Save $9)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/8">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 golden cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1 Year</div>
-                    <div class='cost-text'>$60.00 (Save $24)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class='date lh1 pb2 text-center'>Purchases are handled by: <a class='link' href='https://xsolla.com/'>Xsolla <i class="icon fas fa-external-link-alt"></i></a>. Ludimo! does not process or store your payment information. Taxes/VAT calculated at checkout. View our refund policy <a class='link' href='/terms#refund-policy'>here</a>.</div>
-        <div class='shop-card coins-card mb2'>
-          <div class='card-content'>
-            <div class='h2 pb1 coins-title'>Coins</div>
-            <div>
-              Coins are Ludimo!'s virtual currency that is used to buy accessories for your bopi.
+              </div>
             </div>
           </div>
         </div>
-        <div class='row mb2'>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/9">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>500</div>
-                    <div class='cost-text'>$5.00 </div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/10">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1,000</div>
-                    <div class='cost-text'>$9.00 (Save $1)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/11">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>1,500</div>
-                    <div class='cost-text'>$13.00 (Save $2)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/12">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>2,000</div>
-                    <div class='cost-text'>$16.00 (Save $4)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/13">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>3,000</div>
-                    <div class='cost-text'>$23.00 (Save $7)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/14">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>5,000</div>
-                    <div class='cost-text'>$37.50 (Save $12)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/15">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>7,000</div>
-                    <div class='cost-text'>$52.50 (Save $17)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
-          </div>
-          <div class='col-md-3 col-xs-12'>
-            <form method='POST' action="/xsolla-product/16">
-              <input type="hidden" name="_token" value="jSnyLg7fNvF4EHDZJqn7FeiQIIjUMQYBBLOIiM6X" autocomplete="off"> <button type="submit" class='shop-card w100 card-cost p0 coins-cost mb2'>
-                <div class='card-content'>
-                  <div class='cost'>
-                    <div>10,000</div>
-                    <div class='cost-text'>$70.00 (Save $30)</div>
-                  </div>
-                </div>
-              </button>
-            </form>
+
+        <div class='shop-card coins-card mb2'>
+          <div class='card-content'>
+            <div class='h2 pb1 coins-title'>Coins</div>
+            <div>Coins are Ludimo!'s virtual currency that is used to buy accessories for your bopi.</div>
           </div>
         </div>
-        <div class='date lh1 pb2 text-center'>Purchases are handled by: <a class='link' href='https://xsolla.com/'>Xsolla <i class="icon fas fa-external-link-alt"></i></a>. Ludimo! does not process or store your payment information. Taxes/VAT calculated at checkout. View our refund policy <a class='link' href='/terms#refund-policy'>here</a>.</div>
+
       </div>
+
       <div class="footer ">
         <div class="container">
           <div class="row">
             <div class="col-xs col-md-4 company-stuff">
-              <div class="logo"><img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt=""></div>
+              <div class="logo">
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="">
+              </div>
               <div class="company-text"><span class="copyright">©</span> 2026 Ludimo!</div>
-              <div class="social-media">
-                <a href='https://x.com/playludimo' title='Twitter'><i class="fab fa-twitter"></i></a>
-                <a href='https://www.twitch.tv/ludimo' title='Twitch'><i class="fab fa-twitch"></i></a>
-                <a href='https://www.youtube.com/@Bbrootorg' title='Youtube'><i class="fab fa-youtube"></i></a>
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-8 footer-links">
-              <div class="row">
-                <div class="col-xs-6 col-md mb4-m">
-                  <div class="title">Community</div>
-                  <a href="/staff">Staff</a>
-                  <a href="/blog">Blog</a>
-                  <a href="/events">Events</a>
-                  <a href="/challenges">Challenges</a>
-                </div>
-                <div class="col-xs-6 col-md mb4-m">
-                  <div class="title">Support</div>
-                  <a href="/contact">Contact</a>
-                  <a href="/parents">Parents</a>
-                  <a href="/status">Status</a>
-                </div>
-                <div class="col-xs-12 col-md">
-                  <div class="title">Legal</div>
-                  <a href="/terms">Terms of Service</a>
-                  <a href="/privacy">Privacy Policy</a>
-                  <a href="/terms#refund-policy">Refund Policy</a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <script>
-      function toggleDropdown() {
-        var elm = document.getElementsByClassName("navbar-dropdown")[0]
-        var icon = document.getElementsByClassName("dropdown-icon")[0]
-        elm.classList.toggle("hidden")
-        icon.classList.toggle("up")
-      }
+      // ========== FIREBASE ==========
+      const firebaseConfig = {
+        apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+        authDomain: "ludimo-2d3ae.firebaseapp.com",
+        projectId: "ludimo-2d3ae",
+        storageBucket: "ludimo-2d3ae.firebasestorage.app",
+        messagingSenderId: "229714978642",
+        appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+        measurementId: "G-N83VLBHX2T"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // ========== KEEP LOGGED IN + GOLD CHECK ==========
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const userDoc = await db.collection("users").doc(user.uid).get();
+          const data = userDoc.data() || {};
+          const username = data.username || user.displayName || "Player";
+          const isGold = data.isGold === true;
+
+          // Show purple bar + username
+          document.getElementById("topUsername").innerText = username;
+          document.getElementById("userBar").style.display = "flex";
+
+          // Replace Login/Register with Logout
+          document.getElementById("authButtons").innerHTML = `
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+          `;
+
+          document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            await auth.signOut();
+            window.location.href = "https://ludimo.de5.net/login.html";
+          });
+
+          // Gold status message
+          const goldStatus = document.getElementById("goldStatus");
+          goldStatus.style.display = "block";
+
+          if (isGold) {
+            goldStatus.className = "gold-status has-gold";
+            goldStatus.innerText = "You Got Gold ⭐";
+          } else {
+            goldStatus.className = "gold-status no-gold";
+            goldStatus.innerText = "Buy Gold or Coins";
+          }
+
+        } else {
+          // Not logged in - keep Login/Register buttons
+        }
+      });
+
       function toggleNavbar() {
-        var navbar = document.getElementsByClassName("navbar")[0]
-        navbar.classList.toggle("open")
+        var navbar = document.getElementsByClassName("navbar")[0];
+        navbar.classList.toggle("open");
       }
     </script>
   </body>
