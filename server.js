@@ -1,114 +1,65 @@
+
 import express from "express";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.disable("x-powered-by");
 
-// Serve all static files (html, css, js, images, etc.)
-app.use(express.static(__dirname));
-
-// Health check (for Render)
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok", service: "Ludimo" });
-});
-
-// ========== Main Pages ==========
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "login.html"));
-});
-
-app.get("/login.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "login.html"));
-});
-
-app.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "register.html"));
-});
-
-app.get("/register.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "register.html"));
-});
-
-app.get("/play", (req, res) => {
-  res.sendFile(path.join(__dirname, "play.html"));
-});
-
-app.get("/play.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "play.html"));
-});
-
-app.get("/shop", (req, res) => {
-  res.sendFile(path.join(__dirname, "shop.html"));
-});
-
-app.get("/shop.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "shop.html"));
-});
-
-app.get("/user", (req, res) => {
-  res.sendFile(path.join(__dirname, "user.html"));
-});
-
-app.get("/user.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "user.html"));
-});
-
-app.get("/users", (req, res) => {
-  res.sendFile(path.join(__dirname, "user.html"));
-});
-
-app.get("/download", (req, res) => {
-  res.sendFile(path.join(__dirname, "download.html"));
-});
-
-app.get("/download.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "download.html"));
-});
-
-app.get("/upgrade", (req, res) => {
-  res.sendFile(path.join(__dirname, "upgrade.html"));
-});
-
-app.get("/upgrade.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "upgrade.html"));
-});
-
-// ========== Fallback ==========
-// Try to serve the requested file, otherwise go to index.html
-app.get("*", (req, res) => {
-  const filePath = path.join(__dirname, req.path);
-
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      // Try adding .html
-      res.sendFile(path.join(__dirname, req.path + ".html"), (err2) => {
-        if (err2) {
-          res.sendFile(path.join(__dirname, "index.html"));
-        }
-      });
-    }
+app.use((req, res) => {
+  res.set({
+    "Cache-Control": "no-store, no-cache, must-revalidate",
+    "Retry-After": "3600",
+    "Content-Type": "text/html; charset=utf-8"
   });
+
+  res.status(503).send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>503 Service Unavailable</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #fff;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 400;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 15px;
+    }
+    p {
+      font-size: 15px;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin-top: 30px;
+    }
+    address {
+      color: #777;
+      font-size: 13px;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+  <h1>503 Service Unavailable</h1>
+  <p>No server is available to handle this request.</p>
+  <hr>
+  <address>Apache/2.4.52 (Ubuntu) Server at ludimo.de5.net Port 443</address>
+</body>
+</html>`);
 });
 
-// Start server
 app.listen(PORT, () => {
-  console.log(`Ludimo server running on port ${PORT}`);
-  console.log(`Serving files from: ${__dirname}`);
+  console.log(`Ludimo maintenance server running on port ${PORT}`);
 });
