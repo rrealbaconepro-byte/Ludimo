@@ -176,10 +176,11 @@
             birthday: birthday,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             coins: 0,
+            spirit: 0,
             isGold: false
           });
 
-          // Optional: also update displayName
+          // Update displayName
           await user.updateProfile({
             displayName: username
           });
@@ -187,9 +188,9 @@
           successMsg.textContent = 'Account created successfully! Redirecting...';
           successMsg.style.display = 'block';
 
-          // Redirect after short delay
+          // Redirect to home dashboard
           setTimeout(() => {
-            window.location.href = 'https://ludimo.de5.net/play.html';
+            window.location.href = 'https://ludimo.de5.net/home.html';
           }, 1500);
 
         } catch (error) {
