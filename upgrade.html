@@ -1,16 +1,250 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="robots" content="noarchive, noodp, noydir">
-<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="expires" content="0">
-<title>503 Service Unavailable</title>
-</head>
-<body>
-<h1>503 Service Unavailable</h1>
-No server is available to handle this request.
-<hr>
-<address>Apache/2.4.52 (Ubuntu) Server at ludimo.de5.net Port 443</address>
-</body>
+<html class=''>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bopimo.com/static/dist/css/main.df693f58df1f9154db1be13ba421d0a4.css">
+    <link rel="icon" type="image/png" href="https://cdn.bopimo.com/static/images/favicon.png">
+    <title>Upgrade - Ludimo!</title>
+    <meta property="og:site_name" content="Ludimo!" />
+    <meta property="og:title" content="Upgrade - Ludimo!" />
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
+    <style>
+      .top-user-bar {
+        background: #7b2cbf;
+        color: white;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 14px;
+      }
+      .top-user-bar img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 2px solid white;
+      }
+      .gold-status {
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 10px;
+      }
+      .has-gold {
+        background: linear-gradient(90deg, #ffd700, #ffb700);
+        color: #333;
+      }
+      .no-gold {
+        background: #f0f0f0;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content" id='app'>
+
+      <!-- Purple logged-in bar -->
+      <div class="top-user-bar" id="userBar" style="display: none;">
+        <span>👥 0</span>
+        <span>✉️ 0</span>
+        <span>😊 0</span>
+        <span id="topUsername">Player</span>
+        <span>◆ 1</span>
+        <img id="topAvatar" src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="avatar">
+      </div>
+
+      <nav class='navbar '>
+        <div class='container'>
+          <ul class='left'>
+            <li class="logo">
+              <a href='/'>
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt='landing'>
+              </a>
+              <div class="hamburger-menu" onclick="toggleNavbar()"><i class="fas fa-bars"></i></div>
+            </li>
+            <li><a href="https://ludimo.de5.net/play.html">Play</a></li>
+            <li><a href="https://ludimo.de5.net/shop.html">Shop</a></li>
+            <li><a href="https://ludimo.de5.net/user.html">Users</a></li>
+            <li><a href="https://ludimo.de5.net/download.html">Download</a></li>
+            <li><a href="https://ludimo.de5.net/upgrade.html">Upgrade</a></li>
+          </ul>
+          <ul class="right no-padding" id="authButtons">
+            <li><a href="https://ludimo.de5.net/login.html">Login</a></li>
+            <li><a href="https://ludimo.de5.net/register.html">Register</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="nav-push"></div>
+
+      <div class="container">
+
+        <!-- Gold Status Message -->
+        <div id="goldStatus" class="gold-status" style="display: none;"></div>
+
+        <div class='shop-card golden membership-card mb2'>
+          <div class='card-content'>
+            <div class='row p1'>
+              <div class='col-md-6 col-xs-12 no-padding-h'>
+                <div class='h2 pb1 membership-title gold-text'>Get more with Gold Membership</div>
+                <div class='membership-contents'>
+                  Gold Membership grants several benefits that enhance your Ludimo! experience. These benefits include:
+                </div>
+                <div>
+                  <ul class="membership-ul">
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Receive 25 bonus coins every day without having to do a single challenge!</div>
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Five gold-exclusive items that you keep forever</div>
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Exclusive gold name on the site and in-game</div>
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Level up faster with 25% extra Spirit XP!</div>
+                    <div class='membership-li'><i class="fas fa-star gold-text font-size-1-1"></i> Custom profile theme and more!</div>
+                  </ul>
+                </div>
+              </div>
+              <div class='col-md-6 col-xs-12 no-padding-h membership-img-holder'>
+                <img class='membership-icon desktop-only' src="https://cdn.bopimo.com/static/images/gold/Membership.png">
+                <img class='membership-items' src="https://cdn.bopimo.com/static/images/gold/MembershipItems.png" style='width: 100%;'>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rest of the original upgrade content (subscriptions + coins) stays the same -->
+        <div class='hl hl-gold mb2'>
+          <div class='hl-text'>Subscription</div>
+        </div>
+
+        <div class='row mb2'>
+          <div class='col-md-3 col-xs-12'>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>1 Month</div>
+                  <div class='cost-text'>$7.00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-3 col-xs-12'>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>3 Months</div>
+                  <div class='cost-text'>$18.00 (Save $3)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-3 col-xs-12'>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>6 Months</div>
+                  <div class='cost-text'>$33.00 (Save $9)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='col-md-3 col-xs-12'>
+            <div class='shop-card w100 card-cost p0 golden cost'>
+              <div class='card-content'>
+                <div class='cost'>
+                  <div>1 Year</div>
+                  <div class='cost-text'>$60.00 (Save $24)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='shop-card coins-card mb2'>
+          <div class='card-content'>
+            <div class='h2 pb1 coins-title'>Coins</div>
+            <div>Coins are Ludimo!'s virtual currency that is used to buy accessories for your bopi.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer ">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs col-md-4 company-stuff">
+              <div class="logo">
+                <img src="https://i.postimg.cc/J4Dfqk0d/l-Sn-UK-removebg-preview.png" alt="">
+              </div>
+              <div class="company-text"><span class="copyright">©</span> 2026 Ludimo!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ========== FIREBASE ==========
+      const firebaseConfig = {
+        apiKey: "AIzaSyBTMZGd3zCBsf8OaHsDW8LHqTxegqUF4ww",
+        authDomain: "ludimo-2d3ae.firebaseapp.com",
+        projectId: "ludimo-2d3ae",
+        storageBucket: "ludimo-2d3ae.firebasestorage.app",
+        messagingSenderId: "229714978642",
+        appId: "1:229714978642:web:d9df65ea75f666dea8bc8b",
+        measurementId: "G-N83VLBHX2T"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+      // ========== KEEP LOGGED IN + GOLD CHECK ==========
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          const userDoc = await db.collection("users").doc(user.uid).get();
+          const data = userDoc.data() || {};
+          const username = data.username || user.displayName || "Player";
+          const isGold = data.isGold === true;
+
+          // Show purple bar + username
+          document.getElementById("topUsername").innerText = username;
+          document.getElementById("userBar").style.display = "flex";
+
+          // Replace Login/Register with Logout
+          document.getElementById("authButtons").innerHTML = `
+            <li><a href="#" id="logoutBtn">Logout</a></li>
+          `;
+
+          document.getElementById("logoutBtn").addEventListener("click", async (e) => {
+            e.preventDefault();
+            await auth.signOut();
+            window.location.href = "https://ludimo.de5.net/login.html";
+          });
+
+          // Gold status message
+          const goldStatus = document.getElementById("goldStatus");
+          goldStatus.style.display = "block";
+
+          if (isGold) {
+            goldStatus.className = "gold-status has-gold";
+            goldStatus.innerText = "You Got Gold ⭐";
+          } else {
+            goldStatus.className = "gold-status no-gold";
+            goldStatus.innerText = "Buy Gold or Coins";
+          }
+
+        } else {
+          // Not logged in - keep Login/Register buttons
+        }
+      });
+
+      function toggleNavbar() {
+        var navbar = document.getElementsByClassName("navbar")[0];
+        navbar.classList.toggle("open");
+      }
+    </script>
+  </body>
 </html>
